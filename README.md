@@ -3,6 +3,14 @@
 
 This project is an amalgamation and reimagining of an AI-assisted triage system built for a low-resource Caribbean hospital, where emergency departments often carry heavy patient loads with limited staff, limited digital infrastructure, and very little room for delay.
 
+## Table of Contents 📖
+
+- [Purpose](#purpose)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Purpose 🩺
 
 The purpose of this project is to explore whether a small but powerful set of routinely collected patient triage variables can help support accurate urgency categorisation in the emergency department where digital data is extremely limited.

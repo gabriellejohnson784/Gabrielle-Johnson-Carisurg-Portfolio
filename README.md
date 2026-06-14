@@ -1,6 +1,6 @@
 
 # Emergency Department AI-Assisted Triage System 🏥 📝
-
+### By: Gabrielle Johnson Carisurg AI Healthcare Cohort 2026
 This project is an amalgamation and reimagining of an AI-assisted triage system built for a low-resource Caribbean hospital, where emergency departments often carry heavy patient loads with limited staff, limited digital infrastructure, and very little room for delay.
 
 ## Table of Contents 📖

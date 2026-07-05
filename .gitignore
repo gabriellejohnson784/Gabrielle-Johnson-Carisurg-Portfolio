@@ -218,4 +218,4 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Dataset
-data/yaleemmlc_admissionprediction_triage.csv
+yaleemmlc_admissionprediction_triage.csv

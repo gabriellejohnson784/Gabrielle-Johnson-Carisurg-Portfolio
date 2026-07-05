@@ -50,6 +50,15 @@ FILE_PATH = '/content/drive/MyDrive/add_your_file_path.csv'
 df = pd.read_csv(FILE_PATH)
 
 ```
+## Data Exploration 🔎
+
+A feasibility analysis of an emergency department triage dataset for a proposed AI assisted triage system at Mercer General ED was uploaded during Week 5.
+
+The analysis reviews 55,121 ED encounters across 225 columns, including demographic variables, arrival information, triage vital signs, chief complaint indicators, and Emergency Severity Index (ESI) labels. The goal is to determine whether the dataset is suitable for train a model that will be used to support Mercer’s ED.
+
+The notebook focuses on data profiling, missingness, sanitizing data, demographic representation, chief complaint and vitial sign patterns and correlation
+
+The main finding is that the dataset may be useful for exploratory analysis but it is not sufficient for Mercer's AI triage model training without additional local validation.
 
 
 ## Contributing 🤝

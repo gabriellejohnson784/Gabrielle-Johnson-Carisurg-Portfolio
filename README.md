@@ -9,6 +9,7 @@ This project is an amalgamation and reimagining of an AI-assisted triage system 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Data Exploration](#dataExploration)
+- [Model Training](#modelTraining)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -61,6 +62,25 @@ The notebook focuses on data profiling, missingness, sanitizing data, demographi
 
 The main finding is that the dataset may be useful for exploratory analysis but it is not sufficient for Mercer's AI triage model training without additional local validation.
 
+## Model Training 🏋️
+
+In Week 6 we started model training by first producing a dummy/baseline model
+that we aim to beat. The dummy classifier predicts using only the ESI class
+distribution, any model must outperform it to prove it has learned correlation amongst the features.
+The first model we looked at was a logistic regression model, trained on
+scaled features. Below is a comparison of the two:
+
+| Model | Accuracy | Weighted F1 | Macro F1 | ESI 1 Recall |
+|---|---|---|---|---|
+| Dummy (stratified) | 0.38 | — | — | — |
+| Logistic Regression | 0.667 | 0.661 | 0.493 | 0.250 |
+
+The dataset was split 80/20, and a `random_state=42`
+was used. 
+
+The logistic regression clearly beats the dummy baseline, but the gap between
+weighted and macro F1 reflects the severe class imbalance. Next steps
+focus on class weighting rather than overall accuracy.
 
 ## Contributing 🤝
 

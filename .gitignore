@@ -217,5 +217,14 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Dataset
-yaleemmlc_admissionprediction_triage.csv
+# Dataset 
+data/*
+!data/.gitkeep
+
+# Trained models
+
+models/*
+!models/.gitkeep
+
+# CatBoost training logs
+catboost_info/

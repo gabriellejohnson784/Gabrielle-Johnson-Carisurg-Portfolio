@@ -1,0 +1,30 @@
+# ED triage project configuration
+
+
+data:
+  raw_path: "data/yaleemmlc_admissionprediction_triage.csv"
+  test_size: 0.2
+
+seed: 42
+
+features:
+  demographics: ["age", "gender", "arrivalmode"]   # safe subset; fairness-sensitive columns stay out
+  clinical_features: true                          # shock index, red flags, etc.
+
+# Class weights chosen in the Week 7 sweep: best under-triage profile for
+class_weights: {1: 1, 2: 2.5, 3: 1, 4: 1.5, 5: 1}
+
+models:
+  hgb:                      # headline model
+    max_leaf_nodes: 31
+    learning_rate: 0.1
+    max_iter: 1000
+  logreg:                   # interpretable comparison
+    max_iter: 1000
+  catboost:                 # boosting comparison (class weights applied natively)
+    iterations: 400
+    learning_rate: 0.2
+    depth: 6
+
+output:
+  model_dir: "models"

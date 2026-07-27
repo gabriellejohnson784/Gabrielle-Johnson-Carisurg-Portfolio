@@ -1,7 +1,8 @@
-pandas
-numpy
-matplotlib
-scikit-learn
-joblib
-pyyaml
-catboost
+pandas==3.0.5
+numpy==2.5.1
+matplotlib==3.11.1
+scikit-learn==1.9.0
+joblib==1.5.3
+pyyaml==6.0.3
+catboost==1.2.10
+pytest==9.1.1

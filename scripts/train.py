@@ -37,39 +37,38 @@ def main(config_path):
     X_train, X_test, y_train, y_test = data.split_data(
         X, y, test_size=cfg["data"]["test_size"], seed=seed)
 
-    # fit + evaluate each configured model 
+    # fit + evaluate the pinned model
     class_weights = cfg.get("class_weights")
     if class_weights is not None:
         class_weights = {int(k): v for k, v in class_weights.items()}
     model_dir = Path(cfg["output"]["model_dir"])
 
-    for name, params in cfg["models"].items():
-        params = dict(params or {})
+    model_cfg = dict(cfg["model"])
+    name = model_cfg.pop("name")
+    params = model_cfg
 
-        # CatBoost takes class weights natively as a constructor parameter
-        if name == "catboost" and class_weights is not None:
-            params.setdefault("class_weights", class_weights)
+    # CatBoost takes class weights natively as a constructor parameter
+    if name == "catboost" and class_weights is not None:
+        params.setdefault("class_weights", class_weights)
 
-        est = model_lib.build_model(name, params, seed=seed, class_weights=class_weights)
+    est = model_lib.build_model(name, params, seed=seed, class_weights=class_weights)
 
-        if name == "logreg" and class_weights is not None:
-            # logreg accepts class_weight natively 
-            est.named_steps["logisticregression"].set_params(class_weight=class_weights)
-            est, train_s = model_lib.fit_model(est, X_train, y_train)
-        elif name in ("catboost", "mlp", "dummy", "voting", "stacking"):
-            # catboost: weights already in constructor; the rest don't
-            # support sample_weight (mlp doesn't, and voting/stacking wrap it)
-            est, train_s = model_lib.fit_model(est, X_train, y_train)
-        else:
-            # tree/rf/hgb/xgboost: apply class weights as sample weights
-            est, train_s = model_lib.fit_model(est, X_train, y_train,
-                                               class_weights=class_weights)
-        results = model_lib.evaluate(est, X_test, y_test, train_seconds=train_s)
-        print(f"\n=== {name} ===")
-        print(format_results(results))
+    if name == "logreg" and class_weights is not None:
+        # logreg accepts class_weight natively
+        est.named_steps["logisticregression"].set_params(class_weight=class_weights)
+        est, train_s = model_lib.fit_model(est, X_train, y_train)
+    elif name in ("catboost", "mlp", "dummy", "voting", "stacking"):
+        est, train_s = model_lib.fit_model(est, X_train, y_train)
+    else:
+        # tree/rf/hgb/xgboost: apply class weights as sample weights
+        est, train_s = model_lib.fit_model(est, X_train, y_train,
+                                           class_weights=class_weights)
+    results = model_lib.evaluate(est, X_test, y_test, train_seconds=train_s)
+    print(f"\n=== {name} ===")
+    print(format_results(results))
 
-        saved = model_lib.save_model(est, model_dir / f"model_{name}.joblib")
-        print(f"  saved to {saved}")
+    saved = model_lib.save_model(est, model_dir / f"model_{name}.joblib")
+    print(f"  saved to {saved}")
 
 
 # CLI entry point

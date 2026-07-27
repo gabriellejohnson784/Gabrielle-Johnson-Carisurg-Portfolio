@@ -8,7 +8,7 @@ This project is an amalgamation and reimagining of an AI-assisted triage system 
 - [Purpose](#purpose-)
 - [Installation](#installation-)
 - [Repository Structure](#repository-structure)
-- [Usage](#usage)
+- [Usage](#usage-)
 - [Data Exploration](#dataExploration)
 - [Model Training](#modelTraining)
 - [Handover Document](#handover-document)

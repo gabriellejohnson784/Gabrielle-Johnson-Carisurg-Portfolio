@@ -1,0 +1,19 @@
+Model,Feature stage,Key hyperparameters,Accuracy,Precision,Recall,F1,Train time (s),Inference time (ms/patient)
+Dummy baseline (stratified),A - base,strategy=stratified,0.375,0.204,0.204,0.204,0,0.0004
+Decision tree,B - +demographics,"max_depth=30, min_samples_leaf=20",0.63,0.48,0.371,0.391,1.4,0.0011
+Decision tree (baseline depth 30),A - base,"max_depth=30, min_samples_leaf=20",0.614,0.457,0.331,0.349,2.4,0.0024
+Logistic regression (weighted),C - +clinical features,"max_iter=1000, class_weight={2:2.5, 4:1.5}",0.649,0.633,0.463,0.465,14.6,0.0029
+Logistic regression,C - +clinical features,"max_iter=1000, StandardScaler",0.69,0.6,0.493,0.52,14.8,0.0029
+Neural network (MLP 64x32),C - +clinical features,"hidden=(64,32), alpha=1e-3, max_iter=500, early_stopping",0.688,0.629,0.467,0.505,13.1,0.0045
+Logistic regression,B - +demographics,"max_iter=1000, StandardScaler",0.686,0.606,0.478,0.51,10.4,0.0047
+Logistic regression (baseline),A - base,"max_iter=1000, C=1.0, StandardScaler",0.667,0.583,0.463,0.493,19.2,0.0047
+CatBoost (SELECTED),C - +clinical features,"iterations=400, lr=0.2, depth=6, rsm=0.5, subsample=0.8, class_weights={2:2.5, 4:1.5}, native categoricals",0.653,0.693,0.454,0.461,41.8,0.0051
+Logistic regression (balanced),A - base,"max_iter=1000, class_weight=balanced",0.563,0.413,0.615,0.411,29.2,0.0082
+Decision tree (balanced),A - base,"min_samples_leaf=20, class_weight=balanced",0.516,0.372,0.541,0.378,2.6,0.0083
+Random forest (randomised search),C - +clinical features,"n_estimators=100, max_depth=16, min_samples_leaf=8, max_features=sqrt",0.514,0.42,0.517,0.414,7,0.0107
+XGBoost,C - +clinical features,"n_estimators=1000, lr=0.2, max_depth=6, subsample=0.8, colsample_bytree=0.5, sample weights {2:2.5, 4:1.5}",0.662,0.471,0.44,0.434,37.3,0.0409
+Gradient boosting (HGB weighted),C - +clinical features,"as HGB tuned + sample weights {2:2.5, 4:1.5}",0.654,0.533,0.464,0.465,38.4,0.0896
+Soft-voting ensemble (LogReg+MLP+HGB),C - +clinical features,"voting=soft, weights=[2,1,2], base learners weighted {2:2.5, 4:1.5}",0.671,0.57,0.463,0.47,51.3,0.101
+Stacking ensemble (LogReg+MLP+HGB),C - +clinical features,"final_estimator=LogReg, stack_method=predict_proba, cv=3",0.667,0.689,0.452,0.456,114.5,0.1014
+Gradient boosting (HGB tuned),C - +clinical features,"max_leaf_nodes=31, lr=0.1, max_iter=1000, early_stopping",0.692,0.563,0.5,0.519,46.2,0.1077
+Random forest (300 trees),C - +clinical features,"n_estimators=300, class_weight=balanced",0.649,0.476,0.374,0.394,54.5,0.1241

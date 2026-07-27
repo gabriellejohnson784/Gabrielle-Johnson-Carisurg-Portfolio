@@ -210,8 +210,6 @@ def fit_model(model, X_train, y_train, class_weights=None):
 def undertriage_rates(y_true, y_pred, levels=PRIORITY_LEVELS):
     """Percentage of true ESI-n patients predicted LESS urgent than n.
 
-    Under-triage (prediction > true level, since higher ESI = less urgent)
-    is the clinically dangerous error direction.
 
     Returns
     -------

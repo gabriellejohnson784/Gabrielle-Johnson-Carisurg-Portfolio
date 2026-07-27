@@ -7,9 +7,11 @@ This project is an amalgamation and reimagining of an AI-assisted triage system 
 
 - [Purpose](#purpose)
 - [Installation](#installation)
+- [Repository Structure](#repository-structure)
 - [Usage](#usage)
 - [Data Exploration](#dataExploration)
 - [Model Training](#modelTraining)
+- [Handover Document](#handover-document)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -31,9 +33,37 @@ git clone https://github.com/gabriellejohnson784/Gabrielle-Johnson-Carisurg-Port
 
 ```
 
+## Repository Structure 🗂️
+
+Model training was refactored out of the notebooks into a modular, config-driven pipeline:
+
+- `src/data.py` - loading and cleaning
+- `src/features.py` - feature engineering (demographic encoding, clinical ratios/red flags)
+- `src/model.py` - model construction, training, evaluation
+- `src/utils.py` - shared helpers (config loading, result formatting)
+- `src/diagnostics.py` / `src/viz.py` - optional post-hoc analysis (under-triage profiling, confusion matrices) - not run automatically by training
+- `config.yaml` - the single source of truth for hyperparameters, file paths, and the random seed.
+- `scripts/train.py` - entry point that reads `config.yaml` and runs the pipeline end-to-end
+- `scripts/visualize.py` - loads a saved model and generates a confusion matrix
+- `tests/` - pytest schema and training smoke tests
+
+See [docs/HANDOVER.md](docs/HANDOVER.md) for the exact run commands.
+
 ## Usage 💻📈
 
-The notebooks in this project were completed using Google Colab. Before any data manipulation can begin, the required libraries must be imported and Google Drive must be mounted so the dataset can be accessed.
+### Pipeline Usage (current)
+
+After running `pip install -r requirements.txt` and placing the dataset at `data/yaleemmlc_admissionprediction_triage.csv`, train the pinned model with:
+
+```bash
+python scripts/train.py --config config.yaml
+```
+
+See [docs/HANDOVER.md](docs/HANDOVER.md) for the full setup walkthrough (venv, dependencies, dataset placement, run command).
+
+### Notebook Usage (historical)
+
+The Week 0-7 notebooks in this project were completed using Google Colab, before model training was refactored into the pipeline above. Before any data manipulation can begin, the required libraries must be imported and Google Drive must be mounted so the dataset can be accessed.
 
 ```python
 
@@ -81,6 +111,13 @@ was used.
 The logistic regression clearly beats the dummy baseline, but the gap between
 weighted and macro F1 reflects the severe class imbalance. Next steps
 focus on class weighting rather than overall accuracy.
+
+The final pinned model is CatBoost - `config.yaml`'s `model:` block holds the one model, one hyperparameter set actually shipped. See the Handover Document below for the full decision rationale.
+
+## Handover Document 📋
+
+CatBoost was the final model choice. For more information on how exactly to run commands, where the dataset lives and who can access it, and known limitations of the CATBoost for this project you can reference [docs/HANDOVER.md](docs/HANDOVER.md)
+
 
 ## Contributing 🤝
 

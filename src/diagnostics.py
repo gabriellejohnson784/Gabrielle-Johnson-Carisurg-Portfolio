@@ -9,13 +9,18 @@ def undertriage_profile(X_test, y_test, pred, level, cols, ref_level, sort_by_ef
     """Compare under-triaged vs. correctly-triaged patients.
 
     For patients whose true ESI is ``level``, splits them into those the
-    model under-triaged (predicted less urgent than ``level``) vs. those
+    model under-triaged vs. those
     correctly triaged, then reports means/medians for ``cols`` alongside
     Cohen's d, which puts every column on the same scale so the features
-    that most separate the two groups surface first. ``ref_level`` (the
-    level under-triaged patients were mistaken for) is included for
+    that most separate the two groups appear first. 
+    ``ref_level`` (the level under-triaged patients were mistaken for) is included for
     context.
 
+    Parameters
+    ----------
+    cols : list of str
+        Which X_test columns to profile? - e.g. raw vitals (data.VITALS) or
+        engineered features (e.g. ["shock_index", "red_flag_count"])
     Returns
     -------
     pandas.DataFrame indexed by column in ``cols``.
@@ -55,7 +60,7 @@ def cc_enrichment(X_test, y_test, pred, level, min_count=5, top=12):
     """Chief complaints most over-represented among under-triaged patients.
 
     Within patients whose true ESI is ``level``, compares how often each
-    ``cc_*`` chief-complaint flag fires among under-triaged vs.
+    chief-complaint flag fires among under-triaged vs.
     correctly-triaged patients, ranked by the gap between the two rates.
 
     Returns

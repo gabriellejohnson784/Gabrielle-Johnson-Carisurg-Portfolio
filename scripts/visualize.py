@@ -3,7 +3,7 @@
 Usage:
     python scripts/visualize.py --config config.yaml --model hgb
 
-Rebuilds the same train/test split train.py used (same config, same seed),
+Rebuilds the same train/test split train.py used,
 loads the saved model, and saves a confusion matrix PNG next to it.
 """
 

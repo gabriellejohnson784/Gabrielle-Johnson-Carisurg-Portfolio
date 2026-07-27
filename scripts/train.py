@@ -58,8 +58,6 @@ def main(config_path):
         est.named_steps["logisticregression"].set_params(class_weight=class_weights)
         est, train_s = model_lib.fit_model(est, X_train, y_train)
     elif name in ("catboost", "mlp", "dummy", "voting", "stacking"):
-        # catboost: weights already in constructor; the rest don't
-        # support sample_weight (mlp doesn't, and voting/stacking wrap it)
         est, train_s = model_lib.fit_model(est, X_train, y_train)
     else:
         # tree/rf/hgb/xgboost: apply class weights as sample weights

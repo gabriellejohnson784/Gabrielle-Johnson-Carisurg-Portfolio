@@ -5,7 +5,7 @@ This project is an amalgamation and reimagining of an AI-assisted triage system 
 
 ## Table of Contents 📖
 
-- [Purpose](#purpose)
+- [Purpose](#purpose-)
 - [Installation](#installation)
 - [Repository Structure](#repository-structure)
 - [Usage](#usage)

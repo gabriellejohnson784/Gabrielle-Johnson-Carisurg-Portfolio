@@ -12,7 +12,7 @@ This project is an amalgamation and reimagining of an AI-assisted triage system 
 - [Data Exploration](#data-exploration-)
 - [Model Training](#modelTraining)
 - [Handover Document](#handover-document-)
-- [Contributing](#contributing)
+- [Contributing](#contributing-)
 - [License](#license)
 
 ## Purpose 🩺

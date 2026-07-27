@@ -11,7 +11,7 @@ This project is an amalgamation and reimagining of an AI-assisted triage system 
 - [Usage](#usage-)
 - [Data Exploration](#data-exploration-)
 - [Model Training](#modelTraining)
-- [Handover Document](#handover-document)
+- [Handover Document](#handover-document-)
 - [Contributing](#contributing)
 - [License](#license)
 
